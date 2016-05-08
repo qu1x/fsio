@@ -1,0 +1,50 @@
+# This file is part of fsio, see <https://qu1x.org/fsio>.
+# 
+# Copyright (c) 2016 Rouven Spreckels <n3vu0r@qu1x.org>
+# 
+# fsio is free software: you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License version 3
+# as published by the Free Software Foundation on 19 November 2007.
+# 
+# fsio is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU Affero General Public License for more details.
+# 
+# You should have received a copy of the GNU Affero General Public License
+# along with fsio. If not, see <https://www.gnu.org/licenses>.
+
+_fsio()
+{
+	local cur=${COMP_WORDS[$COMP_CWORD]}
+
+	case "${COMP_WORDS[$COMP_CWORD - 1]}" in
+		-e|--eof|\
+		-b|--buf|\
+		-F|--no-feed|\
+		-B|--no-back|\
+		-p|--poll)
+			if grep -qG "^[0-9]\+$" <<< "$cur"; then
+				COMPREPLY=( $cur )
+			fi
+		;;
+		-s|--show)
+			COMPREPLY=( $(compgen -W 'buf eof' -- $cur) )
+		;;
+		*)
+			COMPREPLY=( $(compgen -f -o plusdirs -W '\
+				get put
+				-e --eof
+				-b --buf
+				-s --show
+				-F --no-feed
+				-B --no-back
+				-p --poll
+				-h --help
+				-v --version
+			' -- $cur) )
+		;;
+	esac
+}
+
+complete -o filenames -F _fsio fsio

@@ -1,0 +1,109 @@
+.\" This file is part of fsio, see <https://qu1x.org/fsio>.
+.\" 
+.\" Copyright (c) 2016 Rouven Spreckels <n3vu0r@qu1x.org>
+.\" 
+.\" fsio is free software: you can redistribute it and/or modify
+.\" it under the terms of the GNU Affero General Public License version 3
+.\" as published by the Free Software Foundation on 19 November 2007.
+.\" 
+.\" fsio is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+.\" GNU Affero General Public License for more details.
+.\" 
+.\" You should have received a copy of the GNU Affero General Public License
+.\" along with fsio. If not, see <https://www.gnu.org/licenses>.
+.\"
+.TH fsio 1 "May 03, 2016" "fsio\-1.0.0" "fsio"
+.SH NAME
+fsio \- Feedback Synchronized I/O
+.SH SYNOPSIS
+.B fsio
+[\fIOPTION\fR]... [\-\-] \fIFSIO\fR \fIMODE\fR \fIFILE\fR [\fIDUMP\fR]
+.SH DESCRIPTION
+Map \fIFSIO\fR channel and transfer \fIFILE\fR. Either \fBget\fR \fIFILE\fR from
+or \fBput\fR \fIFILE\fR to \fIFSIO\fR with \fIMODE\fR of \fBget\fR|\fBput\fR,
+respectively. Optionally dump statistics to \fIDUMP\fR.
+.PP
+\fIFSIO\fR is an XML file with root node \fBfsio\fR. Its first child node
+\fBhs\fR represents the handshake maps. Following child nodes \fBfs\fR
+represent data maps summing up to the total channel width. Each child node,
+\fBhs\fR or \fBfs\fR, take three attributes, the \fBwidth\fR of their maps, and
+two base addresses, \fBi\fR and \fBo\fR, of their input and output
+map, respectively. In case of dual channel mode, a single map of two channels
+can be used instead of two separate maps. This is indicated by a leading \fB+\fR
+of the \fBo\fR address, representing the offset of the second channel relative
+to the base address \fBi\fR of the first channel.
+.PP
+\fBNOTE\fR: For increased statistics, compile with feature
+\fB\-\-enable\-stat\fR. Along the transfer rate, this additionally dumps the
+count of polls of each map divided by \fIBUF\fR.
+.SH OPTIONS
+.TP
+\fB\-e\fR, \fB\-\-eof\fR \fIEOF\fR
+Stop \fIFILE\fR transfer after \fIEOF\fR bytes. In \fBput\fR mode, the file
+size, if determinable, is used as default.
+.TP
+\fB\-b\fR, \fB\-\-buf\fR \fIBUF\fR (16384)
+Use \fIBUF\fR multiples of \fIFSIO\fR width as \fIFILE\fR buffer.
+.TP
+\fB\-s\fR, \fB\-\-show\fR buf|eof
+Show statistics after each \fIBUF\fR or at \fIEOF\fR only.
+.TP
+\fB\-F\fR, \fB\-\-no\-feed\fR
+Get without feeding data back.
+.TP
+\fB\-B\fR, \fB\-\-no\-back\fR
+Put without getting data back.
+.TP
+\fB\-p\fR, \fB\-\-poll\fR \fIPOLL\fR (0)
+Use polling interval of \fIPOLL\fR nanoseconds.
+
+\fBNOTE\fR: Only available if compiled with feature \fB\-\-enable\-wait\fR.
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help.
+.TP
+\fB\-v\fR, \fB\-\-version\fR
+Print version information.
+.SH EXIT STATUS
+.TP
+.B 0
+Success
+.PP
+Errors within the user\-defined range from \fB64\fR to \fB113\fR:
+.TP
+.B 64
+Invalid command line argument usage
+.TP
+.B 65
+File I/O error
+.TP
+.B 66
+Safe and synchronous abortion by single Ctrl-C
+.TP
+.B 67
+Unsafe and asynchronous abortion by double Ctrl-C
+.TP
+.B 113
+Something unexpected
+.SH COPYRIGHT
+Copyright \[co] 2016 Rouven Spreckels <n3vu0r@qu1x.org>
+.PP
+fsio is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3
+as published by the Free Software Foundation on 19 November 2007.
+.PP
+fsio is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+.PP
+You should have received a copy of the GNU Affero General Public License
+along with fsio. If not, see <https://www.gnu.org/licenses>.
+.SH WEBSITE
+<https://qu1x.org/fsio>
+.SH AUTHORS
+Rouven Spreckels <n3vu0r@qu1x.org>
+.SH SEE ALSO
+.B fsio\-tvgen(1) sha1sum(1)

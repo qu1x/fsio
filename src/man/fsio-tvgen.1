@@ -1,0 +1,64 @@
+.\" This file is part of fsio, see <https://qu1x.org/fsio>.
+.\" 
+.\" Copyright (c) 2016 Rouven Spreckels <n3vu0r@qu1x.org>
+.\" 
+.\" fsio is free software: you can redistribute it and/or modify
+.\" it under the terms of the GNU Affero General Public License version 3
+.\" as published by the Free Software Foundation on 19 November 2007.
+.\" 
+.\" fsio is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+.\" GNU Affero General Public License for more details.
+.\" 
+.\" You should have received a copy of the GNU Affero General Public License
+.\" along with fsio. If not, see <https://www.gnu.org/licenses>.
+.\"
+.TH fsio\-tvgen 1 "May 03, 2016" "fsio\-1.0.0" "fsio"
+.SH NAME
+fsio\-tvgen \- Test Vector Generator
+.SH SYNOPSIS
+.B fsio\-tvgen
+[\fIROWS\fR \fICOLS\fR \fISIZE\fR]
+.SH DESCRIPTION
+Generate test vector \fIROWS\fRx\fICOLS\fRx\fISIZE\fR.tv of \fIROWS\fR rows.
+.PP
+Each row has \fICOLS\fR cols of \fISIZE\fR\-byte with values of current row
+number.
+.PP
+With no arguments, print help.
+.SH EXIT STATUS
+.TP
+.B 0
+Success
+.PP
+Errors within the user\-defined range from \fB64\fR to \fB113\fR:
+.TP
+.B 64
+Invalid command line argument usage
+.TP
+.B 65
+File I/O error
+.TP
+.B 113
+Something unexpected
+.SH COPYRIGHT
+Copyright \[co] 2016 Rouven Spreckels <n3vu0r@qu1x.org>
+.PP
+fsio is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License version 3
+as published by the Free Software Foundation on 19 November 2007.
+.PP
+fsio is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+.PP
+You should have received a copy of the GNU Affero General Public License
+along with fsio. If not, see <https://www.gnu.org/licenses>.
+.SH WEBSITE
+<https://qu1x.org/fsio>
+.SH AUTHORS
+Rouven Spreckels <n3vu0r@qu1x.org>
+.SH SEE ALSO
+.B fsio(1) xxd(1) hexdump(1)
