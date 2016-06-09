@@ -17,7 +17,7 @@
 fsio
 ====
 
-Feedback Synchronized I/O
+Feedback Synchronized I/O - CPU/FPGA Communication
 
 Installation
 ============
@@ -88,7 +88,7 @@ Communication Protocol
 The CPU or processing system (PS) acts as master and requests data to be either
 written or read while the FPGA or programmable logic (PL) acts as slave and
 serves these requests followed by acknowledging them. The handshake signal as
-well as the data signals are feedback in order to synchronize communication,
+well as the data signals are fed back in order to synchronize communication,
 hence the name Feedback Synchronized I/O (fsio),
 
 The AXI GPIO IP Core from the Xilinx Vivado IP Catalog provides a dual-channel
@@ -101,9 +101,9 @@ is made up of a handshake map of one signal and one or more data maps of up to
 
 ![Communication Channel](doc/4x4.png)
 
-The mapping is stored in an XML file, a channel description file. It
-is passed to the file transfer application named fsio and parsed by the library
-named libfsio.
+The mapping is stored in an XML file, a channel description file. It is passed
+to the file transfer application named fsio and parsed by the library named
+libfsio.
 
 		<fsio>
 			<hs i="0x41200000" o="+0x8" width="1"/>
@@ -145,10 +145,12 @@ Performance Measurements
 	SoC: Zynq XC7Z030 (-1)
 	CLK: 180 MHz
 	eOS: Xilinx PetaLinux 2015.4
+	CFG: --enable-stat
 	CXX: arm-linux-gnueabi-gcc -std=c++14 -O3 (4.9.2)
+	CMD: fsio -s buf -e 80000000 WIDTH.xml put|get 80MB.tv WIDTH.sv
 
-Write Rate (PS to PL)
----------------------
+Write Rate (from CPU to FPGA)
+-----------------------------
 
 ![Write Rate vs. Channel Width](doc/put-rate.png)
 
@@ -187,8 +189,8 @@ Write Rate (PS to PL)
 |   31 | 124               |       9.736 | 0.020                   |
 |   32 | 128               |       9.733 | 0.021                   |
 
-Read Rate (PL to PS)
---------------------
+Read Rate (from FPGA to CPU)
+----------------------------
 
 ![Read Rate vs. Channel Width](doc/get-rate.png)
 
