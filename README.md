@@ -122,7 +122,7 @@ labeled as output for the FPGA, and vice versa. Time flows from top to bottom,
 except for the orange colored feeding which is done continuously on the FPGA and
 alternately with the handshake polling on the CPU.
 
-![Master Write - Slave Read](doc/mwsr.svg)
+![Master Write - Slave Read](doc/mwsr.png)
 
 The master write routine firstly writes the data, and repeatedly reads it back
 until they are equal. Then it toggles the handshake signal requesting the FPGA
@@ -130,7 +130,7 @@ to read the data. Afterwards, the slave read routine of the FPGA acknowledges
 the request by feeding back the toggled handshake signal for which the CPU is
 waiting for by polling it.
 
-![Master Read - Slave Write](doc/mrsw.svg)
+![Master Read - Slave Write](doc/mrsw.png)
 
 In contrast, the master read routine firstly toggles the handshake signal
 requesting the FPGA to write data while the CPU repeatedly feeds it back. The
