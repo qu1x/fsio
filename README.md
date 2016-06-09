@@ -95,9 +95,9 @@ The AXI GPIO IP Core from the Xilinx Vivado IP Catalog provides a dual-channel
 mode allowing the first channel to be input only and the second channel to be
 output only. This suits the protocol well since one of the two channels can be
 used as feedback loop reducing the number of maps to not bloat the block design.
-An instance of this IP Core is here referred to as map. A communication channel
-is made up of a handshake map of one signal and one or more data maps of up to
-32 signals.
+An instance of this IP Core is referred to as a map. A communication channel is
+made up of a handshake map of one signal and one or more data maps of up to 32
+signals.
 
 ![Communication Channel](doc/4x4.png)
 

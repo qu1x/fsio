@@ -25,15 +25,15 @@ Map \fIFSIO\fR channel and transfer \fIFILE\fR. Either \fBget\fR \fIFILE\fR from
 or \fBput\fR \fIFILE\fR to \fIFSIO\fR with \fIMODE\fR of \fBget\fR|\fBput\fR,
 respectively. Optionally dump statistics to \fIDUMP\fR.
 .PP
-\fIFSIO\fR is an XML file with root node \fBfsio\fR. Its first child node
-\fBhs\fR represents the handshake maps. Following child nodes \fBfs\fR
-represent data maps summing up to the total channel width. Each child node,
-\fBhs\fR or \fBfs\fR, takes three attributes, the \fBwidth\fR of their maps, and
-two base addresses, \fBi\fR and \fBo\fR, of their input and output
-map, respectively. In case of dual channel mode, a single map of two channels
-can be used instead of two separate maps. This is indicated by a leading \fB+\fR
-of the \fBo\fR address, representing the offset of the second channel relative
-to the base address \fBi\fR of the first channel.
+\fIFSIO\fR is an XML file with root node \fBfsio\fR, referred to as channel
+description file. Its first child node \fBhs\fR represents the handshake maps.
+Following child nodes \fBfs\fR represent data maps summing up to the total
+channel width. Each child node, \fBhs\fR or \fBfs\fR, takes three attributes,
+the \fBwidth\fR of their maps, and two base addresses, \fBi\fR and \fBo\fR, of
+their input and output map, respectively. In case of dual channel mode, a single
+map of two channels can be used instead of two separate maps. This is indicated
+by a leading \fB+\fR of the \fBo\fR address, representing the offset of the
+second channel relative to the base address \fBi\fR of the first channel.
 .PP
 \fBNOTE\fR: For increased statistics, compile with feature
 \fB\-\-enable\-stat\fR. Along the transfer rate, this additionally dumps the
