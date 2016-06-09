@@ -14,7 +14,7 @@
 .\" You should have received a copy of the GNU Affero General Public License
 .\" along with fsio. If not, see <https://www.gnu.org/licenses>.
 .\"
-.TH fsio 1 "May 03, 2016" "fsio\-1.0.0" "fsio"
+.TH fsio 1 "June 09, 2016" "fsio\-1.0.1" "fsio"
 .SH NAME
 fsio \- Feedback Synchronized I/O
 .SH SYNOPSIS
@@ -28,7 +28,7 @@ respectively. Optionally dump statistics to \fIDUMP\fR.
 \fIFSIO\fR is an XML file with root node \fBfsio\fR. Its first child node
 \fBhs\fR represents the handshake maps. Following child nodes \fBfs\fR
 represent data maps summing up to the total channel width. Each child node,
-\fBhs\fR or \fBfs\fR, take three attributes, the \fBwidth\fR of their maps, and
+\fBhs\fR or \fBfs\fR, takes three attributes, the \fBwidth\fR of their maps, and
 two base addresses, \fBi\fR and \fBo\fR, of their input and output
 map, respectively. In case of dual channel mode, a single map of two channels
 can be used instead of two separate maps. This is indicated by a leading \fB+\fR

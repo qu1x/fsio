@@ -39,3 +39,5 @@ bash_completiondir = $(sysconfdir)/bash_completion.d
 dist_bash_completion_DATA = $(srcdir)/src/bash_completion/*
 
 dist_man_MANS = $(srcdir)/src/man/fsio*.1
+
+EXTRA_DIST = doc

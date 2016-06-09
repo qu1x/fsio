@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with fsio. If not, see <https://www.gnu.org/licenses>.
 
-AC_INIT([fsio], [1.0.0],
+AC_INIT([fsio], [1.0.1],
 	[n3vu0r@qu1x.org], [fsio], [https://qu1x.org/fsio])
 
 AC_CONFIG_MACRO_DIR([m4])
