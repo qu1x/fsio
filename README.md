@@ -82,6 +82,62 @@ Have a look at the package definition and the top-level loopback example:
 		less fsio.vhd
 		less fsio_top.vhd
 
+Communication Protocol
+======================
+
+The CPU or processing system (PS) acts as master and requests data to be either
+written or read while the FPGA or programmable logic (PL) acts as slave and
+serves these requests followed by acknowledging them. The handshake signal as
+well as the data signals are feedback in order to synchronize communication,
+hence the name Feedback Synchronized I/O (fsio),
+
+The AXI GPIO IP Core from the Xilinx Vivado IP Catalog provides a dual-channel
+mode allowing the first channel to be input only and the second channel to be
+output only. This suits the protocol well since one of the two channels can be
+used as feedback loop reducing the number of maps to not bloat the block design.
+An instance of this IP Core is here referred to as map. A communication channel
+is made up of a handshake map of one signal and one or more data maps of up to
+32 signals.
+
+![Communication Channel](doc/4x4.png)
+
+The mapping is stored in an XML file, a channel description file. It
+is passed to the file transfer application named fsio and parsed by the library
+named libfsio.
+
+		<fsio>
+			<hs i="0x41200000" o="+0x8" width="1"/>
+			<fs i="0x41210000" o="+0x8" width="4"/>
+			<fs i="0x41220000" o="+0x8" width="4"/>
+			<fs i="0x41230000" o="+0x8" width="4"/>
+			<fs i="0x41240000" o="+0x8" width="4"/>
+		</fsio>
+
+In both figures, the CPU on the left and the FPGA on the right represent an
+unidirectional communication channel. The arrows indicate the two feedback loops
+of each figure, one for the data and one for the handshake. A loop has both
+input and output mappings, labeled “fsi” and “fso” for the data, and “hsi” and
+“hso” for the handshake, respectively. What is labeled as input for the CPU, is
+labeled as output for the FPGA, and vice versa. Time flows from top to bottom,
+except for the orange colored feeding which is done continuously on the FPGA and
+alternately with the handshake polling on the CPU.
+
+![Master Write - Slave Read](doc/mwsr.svg)
+
+The master write routine firstly writes the data, and repeatedly reads it back
+until they are equal. Then it toggles the handshake signal requesting the FPGA
+to read the data. Afterwards, the slave read routine of the FPGA acknowledges
+the request by feeding back the toggled handshake signal for which the CPU is
+waiting for by polling it.
+
+![Master Read - Slave Write](doc/mrsw.svg)
+
+In contrast, the master read routine firstly toggles the handshake signal
+requesting the FPGA to write data while the CPU repeatedly feeds it back. The
+slave write routine of the FPGA compares the written with the fed back data
+until they are equal. Afterwards, it acknowledges the request by feeding back
+the toggled handshake signal, allowing the CPU to finally read the data.
+
 Performance Measurements
 ========================
 
