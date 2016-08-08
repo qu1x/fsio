@@ -48,6 +48,7 @@
 #endif
 
 class fsio {
+public:
 	class map {
 	public:
 		virtual ~map() {};
@@ -60,6 +61,7 @@ class fsio {
 		virtual auto get(void* data) const -> std::size_t = 0;
 		virtual auto put(const void* data) -> std::size_t = 0;
 	};
+private:
 	std::size_t fs_size;
 	std::unique_ptr<map> hs;
 	std::vector<std::unique_ptr<map>> fs;
