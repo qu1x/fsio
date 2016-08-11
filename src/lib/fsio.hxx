@@ -90,6 +90,7 @@ public:
 		std::size_t poll = FSIO_POLL);
 	fsio(std::string file, bool feed = FSIO_FEED, bool back = FSIO_BACK,
 		std::size_t poll = FSIO_POLL);
+	void free();
 	void stat(std::vector<std::size_t>& sv) const;
 	auto size() const -> std::size_t { return fs_size; };
 	void own() const { hs->own(); };

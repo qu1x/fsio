@@ -53,11 +53,11 @@ public:
 		own();
 	}
 	void free() {
-		if (munmap((T*)i, sizeof (T)) == -1)
+		if (i != MAP_FAILED && munmap((T*)i, sizeof (T)) == -1)
 			throw std::string("Cannot unmap base memory: ")
 				+ std::strerror(errno);
 		if (!dual)
-			if (munmap((T*)o, sizeof (T)) == -1)
+			if (o != MAP_FAILED && munmap((T*)o, sizeof (T)) == -1)
 				throw std::string("Cannot unmap dual memory: ")
 					+ std::strerror(errno);
 		i = o = (volatile T*)MAP_FAILED;

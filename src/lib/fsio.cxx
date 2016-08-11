@@ -102,6 +102,12 @@ fsio(feed, back, poll) {
 	make(tree.first_child());
 }
 
+void fsio::free() {
+	hs->free();
+	for (auto& io: fs)
+		io->free();
+}
+
 #if FSIO_WAIT
 void fsio::wait() const {
 	if (poll) {

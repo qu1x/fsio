@@ -539,6 +539,7 @@ auto main(int argc, char** argv) -> int {
 			}
 		}
 		stat(dump, port, args.mode, args.show != opts::non, osum, args.eofs);
+		port.free();
 		if (term::endl)
 			std::cout << std::endl;
 	}
