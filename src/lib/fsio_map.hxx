@@ -52,7 +52,7 @@ public:
 		}
 		own();
 	}
-	~fsio_map() override {
+	void free() {
 		if (munmap((T*)i, sizeof (T)) == -1)
 			throw std::string("Cannot unmap base memory: ")
 				+ std::strerror(errno);
@@ -60,7 +60,9 @@ public:
 			if (munmap((T*)o, sizeof (T)) == -1)
 				throw std::string("Cannot unmap dual memory: ")
 					+ std::strerror(errno);
+		i = o = (volatile T*)MAP_FAILED;
 	}
+	~fsio_map() override { try { free(); } catch (...) {} }
 	auto size() const -> std::size_t override { return sizeof (T); }
 	void wave() override { *o = data = !data; }
 #if FSIO_STAT

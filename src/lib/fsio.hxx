@@ -52,6 +52,7 @@ public:
 	class map {
 	public:
 		virtual ~map() {};
+		virtual void free() = 0;
 		virtual auto size() const -> std::size_t = 0;
 		virtual void wave() = 0;
 		virtual void feed() = 0;
