@@ -1,18 +1,18 @@
-// This file is part of libfsio, see <https://qu1x.org/libfsio>.
+// This file is part of fsio, see <https://qu1x.org/fsio>.
 // 
 // Copyright (c) 2016 Rouven Spreckels <n3vu0r@qu1x.org>
 // 
-// libfsio is free software: you can redistribute it and/or modify
+// fsio is free software: you can redistribute it and/or modify
 // it under the terms of the GNU Affero General Public License version 3
 // as published by the Free Software Foundation on 19 November 2007.
 // 
-// libfsio is distributed in the hope that it will be useful,
+// fsio is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU Affero General Public License for more details.
 // 
 // You should have received a copy of the GNU Affero General Public License
-// along with libfsio. If not, see <https://www.gnu.org/licenses>.
+// along with fsio. If not, see <https://www.gnu.org/licenses>.
 
 #ifndef _FSIO_MAP_H
 #define _FSIO_MAP_H
