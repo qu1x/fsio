@@ -116,10 +116,10 @@ public:
 		poll = FSIO_POLL;
 		feed = back = 1;
 	}
-	bool parse(int& argc, char**& argv);
+	auto parse(int& argc, char**& argv) -> bool;
 };
 
-bool opts::parse(int& argc, char**& argv) {
+auto opts::parse(int& argc, char**& argv) -> bool {
 	opterr = 0;
 	const char* opts = "-:e:b:s:FB"
 #if FSIO_WAIT
@@ -215,7 +215,8 @@ bool opts::parse(int& argc, char**& argv) {
 	return help || info;
 }
 
-std::string fmt_p100(std::size_t val, std::size_t ref, std::string suf = " %") {
+auto fmt_p100(std::size_t val, std::size_t ref, std::string suf = " %")
+-> std::string {
 	std::size_t pct = 0;
 	if (ref)
 		pct = std::round((double)val / (double)ref * 100.0);
@@ -223,22 +224,22 @@ std::string fmt_p100(std::size_t val, std::size_t ref, std::string suf = " %") {
 	return std::string(3 - str.size(), ' ') + str + suf;
 }
 
-timespec get_time() {
+auto get_time() -> timespec {
 	timespec time;
 	if (-1 == clock_gettime(CLOCK_MONOTONIC, &time))
 		throw std::string("Cannot get time: ") + std::strerror(errno);
 	return time;
 }
 
-long int_time(const timespec& time) {
+auto int_time(const timespec& time) -> long {
 	return time.tv_sec + (time.tv_nsec + 500'000'000) / 1'000'000'000;
 }
 
-double flt_time(const timespec& time) {
+auto flt_time(const timespec& time) -> double {
 	return (double)time.tv_sec + (double)time.tv_nsec / 1'000'000'000.0;
 }
 
-timespec& operator-=(timespec& time, const timespec& last) {
+auto operator-=(timespec& time, const timespec& last) -> timespec& {
 	time.tv_sec -= last.tv_sec;
 	if (time.tv_nsec < last.tv_nsec) {
 		time.tv_nsec += 1'000'000'000 - last.tv_nsec;
@@ -249,7 +250,7 @@ timespec& operator-=(timespec& time, const timespec& last) {
 	return time;
 }
 
-std::string fmt_time(const timespec& time) {
+auto fmt_time(const timespec& time) -> std::string {
 	std::size_t s = int_time(time), m = s / 60, h = m / 60;
 	s -= m * 60;
 	m -= h * 60;
@@ -262,7 +263,7 @@ std::string fmt_time(const timespec& time) {
 	return std::string(str, len);
 }
 
-std::string fmt_size(std::uint64_t size, std::uint8_t precision = 2) {
+auto fmt_size(std::uint64_t size, std::uint8_t precision = 2) -> std::string {
 	static const char* prefix = "kMGTPE";
 	static const std::uint64_t pow[] = {
 		1'000,
@@ -290,10 +291,10 @@ std::string fmt_size(std::uint64_t size, std::uint8_t precision = 2) {
 	return std::string(str, len);
 }
 
-std::string fmt_rate(
+auto fmt_rate(
 	std::size_t size, timespec time,
 	std::uint8_t precision = 2
-) {
+) -> std::string {
 	if (!time.tv_sec && !time.tv_nsec) {
 		size = 0;
 		time.tv_sec = 1;
@@ -324,7 +325,7 @@ public:
 		}
 		return ws;
 	}
-	static int halt() { return halt_status; }
+	static auto halt() -> int { return halt_status; }
 	term() {
 		struct sigaction sa;
 		sigemptyset(&sa.sa_mask);
@@ -406,7 +407,7 @@ void stat(
 	term::endl = true;
 }
 
-int main(int argc, char** argv) {
+auto main(int argc, char** argv) -> int {
 	try {
 		opts args = opts();
 		try {
