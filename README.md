@@ -1,6 +1,6 @@
 > This file is part of fsio, see <https://qu1x.org/fsio>.
 > 
-> Copyright (c) 2016 Rouven Spreckels <n3vu0r@qu1x.org>
+> Copyright (c) 2016, 2018 Rouven Spreckels <n3vu0r@qu1x.org>
 > 
 > fsio is free software: you can redistribute it and/or modify
 > it under the terms of the GNU Affero General Public License version 3
